@@ -26,9 +26,11 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
+    // Login/OTP calls return 401 for bad credentials; the login page shows that itself.
+    const isAuthCall = String(error.config?.url ?? "").startsWith("/auth/");
+    if (error.response?.status === 401 && !isAuthCall) {
       logout(); // Remove token + localStorage
-      window.location.href = "/login"; // Redirect to login
+      window.location.href = "/login?reason=expired"; // Redirect to login
     }
 
     return Promise.reject(error);
