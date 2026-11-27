@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-const PUBLIC_ROUTES = ["/login"];
+const PUBLIC_ROUTES = ["/login", "/forgot-password"];
 
 // Role permissions, matched by path prefix ("/claims" also covers "/claims/[id]").
 // This only gates the UI; the API enforces the real authorization.
